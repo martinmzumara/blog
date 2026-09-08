@@ -9,9 +9,26 @@
   --text-faint: #7c8496;
   --card-bg: rgba(255, 255, 255, 0.05);
   --card-border: rgba(255, 255, 255, 0.12);
+  --card-border-strong: rgba(255, 255, 255, 0.26);
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Space Grotesk', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Light theme — mirrors the portfolio's light palette.
+   The portfolio and blog share localStorage (same origin), so the
+   chosen theme carries across both sites. */
+[data-theme="light"] {
+  --accent-blue: #2563eb;
+  --accent-cyan: #60a5fa;
+  --accent-blue-glow: rgba(37, 99, 235, 0.35);
+  --bg-main: #eef1f7;
+  --text-primary: #0f172a;
+  --text-secondary: #46506b;
+  --text-faint: #6b7488;
+  --card-bg: rgba(255, 255, 255, 0.65);
+  --card-border: rgba(15, 23, 42, 0.13);
+  --card-border-strong: rgba(15, 23, 42, 0.28);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,6 +44,12 @@ body {
   font-family: var(--font-body);
   line-height: 1.7;
   min-height: 100vh;
+}
+
+[data-theme="light"] body {
+  background-image:
+    radial-gradient(46% 40% at 8% 4%, rgba(37, 99, 235, 0.12), transparent 62%),
+    radial-gradient(55% 48% at 60% 100%, rgba(124, 108, 246, 0.10), transparent 62%);
 }
 
 .container { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
@@ -86,7 +109,7 @@ a:hover { text-decoration: underline; }
 }
 .post-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.26);
+  border-color: var(--card-border-strong);
   text-decoration: none;
 }
 .post-card .meta {
@@ -165,3 +188,27 @@ a:hover { text-decoration: underline; }
   font-size: 0.85rem;
 }
 .site-footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover { color: var(--text-primary); border-color: var(--card-border-strong); }
+.theme-toggle svg { width: 14px; height: 14px; }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: inline; }
+[data-theme="light"] .theme-toggle .icon-sun { display: inline; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }

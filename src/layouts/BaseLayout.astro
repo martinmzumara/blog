@@ -11,6 +11,24 @@ const BASE = import.meta.env.BASE_URL; // '/blog/'
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      (function () {
+        var saved = null;
+        try { saved = localStorage.getItem('theme'); } catch (e) {}
+        var m = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        var apply = function (v) {
+          document.documentElement.setAttribute('data-theme', v);
+        };
+        apply(saved || (m && m.matches ? 'dark' : 'light'));
+        if (m && m.addEventListener) {
+          m.addEventListener('change', function () {
+            var s = null;
+            try { s = localStorage.getItem('theme'); } catch (e) {}
+            if (!s) apply(m.matches ? 'dark' : 'light');
+          });
+        }
+      })();
+    </script>
     <meta name="theme-color" content="#4d9bff" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234d9bff'/><text x='50' y='68' font-size='50' font-family='monospace' font-weight='bold' fill='white' text-anchor='middle'>M</text></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,10 +41,24 @@ const BASE = import.meta.env.BASE_URL; // '/blog/'
         <a class="logo" href={BASE}>MARTIN MZUMARA — BLOG</a>
         <nav>
           <a href="/">← PORTFOLIO</a>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark/light mode">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span id="theme-toggle-label">DARK</span>
+          </button>
         </nav>
       </div>
     </header>
     <slot />
+    <script>
+      document.getElementById('theme-toggle')?.addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        var label = document.getElementById('theme-toggle-label');
+        if (label) label.textContent = next === 'light' ? 'LIGHT' : 'DARK';
+      });
+    </script>
     <footer class="site-footer">
       <div class="container">
         <span>© {new Date().getFullYear()} Martin Mzumara</span>
