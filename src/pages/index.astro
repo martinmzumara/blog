@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+<BaseLayout title="Blog — Martin Mzumara" description="Articles on software development, IoT systems, IT field work, and the tools I use daily.">
+  <main class="container">
+    <section class="hero">
+      <span class="system-label">// NOTES FROM THE FIELD</span>
+      <h1>Blog &amp; Articles</h1>
+      <p>Write-ups on software development, IoT systems, IT field work, and the tools I rely on every day.</p>
+    </section>
+
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a class="post-card" href={`${import.meta.env.BASE_URL}posts/${post.id}/`}>
+            <div class="meta">
+              <span class="tag">{post.data.tag}</span>
+              <span>{post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+              {post.data.device && <span>{post.data.device}</span>}
+            </div>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</BaseLayout>
