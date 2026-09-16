@@ -12,7 +12,7 @@ The biggest reason was curiosity, control, minimalism and learning experience. A
 
 ## The Install
 
-I used 'archinstall' for easier setup. I also use btrfs for my filesystem, i also use niri + noctalia shell for my desktop environment. 
+I used `archinstall` for easier setup. I also use btrfs for my filesystem, i also use niri + noctalia shell for my desktop environment. 
 
 ## What I Use It For
 
@@ -27,7 +27,7 @@ Setting up for the first time was the hardest, i broke the partitions easily. I 
 
 ## Would I Recommend It?
 
-I would recommend Archlinux to all those that prefer to have a granular control over there system and also for those that just want to switch away from windows, i would recommend starting with a more friendly operating system like 'Ubuntu' 
+I would recommend Archlinux to all those that prefer to have a granular control over there system and also for those that just want to switch away from windows, i would recommend starting with a more friendly operating system like `Ubuntu`
 
 ---
 
