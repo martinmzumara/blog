@@ -28,6 +28,7 @@ Setting up for the first time was the hardest, i broke the partitions easily. I 
 ## Would I Recommend It?
 
 I would recommend Archlinux to all those that prefer to have a granular control over there system and also for those that just want to switch away from windows, i would recommend starting with a more friendly operating system like 'Ubuntu' 
+
 ---
 
 *Running Arch btw.*
